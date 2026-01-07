@@ -1,108 +1,171 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: arial,sans-serif;
+/* ========== Variables ========== */
+:root {
+  --navbar-height: 70px;
+  --section-spacing: 40px;
+  --bg-color: #f4f6f8;
+  --text-color: #333;
+  --card-bg: #fff;
+  --li-bg: #e3e7eb;
+
 }
 
-html {
+/* Dark Mode Variables */
+body.dark {
+  --bg-color: #121212;
+  --text-color: #f1f1f1;
+  --card-bg: #1e1e1e;
+  --li-bg: #2a2a2a;
+}
+
+/* ========== Global Styles ========== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
   scroll-behavior: smooth;
 }
 
-body{
-    background-color: #f4f6f8;
-    color: #333;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    height: 100dvh;
-}
-
-.header {
+/* Sections */
+section {
   width: 100%;
-  background: #ffffff;
-  position: fixed;
-  top: 0;
-  left: 0;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  z-index: 1000;
-}
-.nav {
-  max-width: 1000px;
-  margin: auto;
-  padding: 15px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.logo {
-  font-weight: bold;
-  font-size: 1.2rem;
+  max-width: 800px;
+  background: var(--card-bg);
+  padding: var(--section-spacing);
+  margin: var(--section-spacing) auto;
+  scroll-margin-top: calc(var(--navbar-height) + var(--section-spacing) );
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 20px;
+/* Hero Section */
+.hero {
+  margin-top: calc( var(--navbar-height) + var(--section-spacing) ) ;
+  text-align: center;
 }
 
-.nav-links a {
-  text-decoration: none;
-  color: #333;
-  font-weight: 500;
+section:not(.hero) {
+  margin-top: var(--section-spacing); /* فاصله بین Section‌ها */
 }
 
-.nav-links a:hover {
-  color: #0077ff;
-}
+/* Headers */
+h1 { font-size: 2.5rem; margin-bottom: 10px; }
+h2 { margin-bottom: 15px; color: var(--text-color); }
 
-.hero,
-.about,
-.skills {
-  margin-top: 100px;
-}
-
-section{
-    width: 100%;
-    max-width: 800px;
-    background: #fff;
-    padding: 40px;
-    margin: 20px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-.hero{
-    text-align: center;
-}
-
-h1{
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-}
-
-h2{
-    margin-bottom: 15px;
-    color: #222;
-}
-
-p{
-    font-size: 1.2rem;
-    color: #555;
-}
-
+/* Skills List */
 .skills ul {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
 }
-
 .skills li {
-  background: #e3e7eb;
+  background: var(--li-bg);
   padding: 10px 15px;
   border-radius: 5px;
   font-size: 0.9rem;
+}
+
+/* ========== Navbar ========== */
+.header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  height: var(--navbar-height);
+  background: var(--card-bg);
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.nav {
+  max-width: 1000px;
+  margin: auto;
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.logo { font-weight: bold; font-size: 1.2rem; }
+
+/* Navigation Links */
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 500;
+}
+.nav-links a:hover { color: #0077ff; }
+
+/* Dark/Light Mode Button */
+#theme-toggle {
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  color: var(--text-color);
+}
+
+/* Hamburger Menu */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 22px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 60px;
+  z-index: 2000;
+}
+
+.menu-toggle span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background: var(--text-color);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Hamburger Animation */
+.menu-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+.menu-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* ========== Responsive Styles ========== */
+@media (max-width: 768px) {
+  .menu-toggle { display: flex; }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    flex-direction: column;
+    width: 200px;
+    padding: 20px;
+    background: var(--card-bg);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  }
+
+  .nav-links.active { display: flex; }
 }
